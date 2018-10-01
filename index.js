@@ -1,10 +1,20 @@
 const express = require('express');
 const axios = require('axios');
-require('dotenv').config()
+require('dotenv').config();
 
 const app = express();
 
 const port = process.env.PORT || 8000;
+const {PROJECT_FETCHER_URL, API_KEY} = process.env;
+
+if (!PROJECT_FETCHER_URL) {
+  console.error('Please set the Project Service URL');
+  process.exit(1);
+}
+if (!API_KEY) {
+  console.error('Please set the Project Service API Key');
+  process.exit(1);
+}
 
 if (process.env.NODE_ENV === 'DEVELOPMENT') {
   app.use(function(req, res, next) {
@@ -22,7 +32,7 @@ app.get('/api/projects', async (_, res) => {
     method: 'GET',
     url: process.env.PROJECT_FETCHER_URL,
     headers: {
-        'x-api-key': process.env.API_KEY
+      'x-api-key': process.env.API_KEY,
     },
   };
 
