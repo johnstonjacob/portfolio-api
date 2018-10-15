@@ -44,6 +44,6 @@ app.get('/api/projects', async (_, res) => {
   }
 });
 
-app.get('*', (_, res) => res.status(404).send('Resource not found'));
+app.get('*', (_, res) => res.status(404).send('Resource not found.'));
 
 app.listen(port, () => console.log(`Listening on ${port}.`));
