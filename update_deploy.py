@@ -31,7 +31,7 @@ def getTaggedInstances(client, value):
             'Name': 'tag:aws:cloudformation:stack-name',
             'Values': [value]
         }])
-    print(instances)
+    print(instances['Reservations'][0]['Instances'])
     return [instance['InstanceId'] for instance in instances['Reservations'][0]['Instances'] if instance['State']['Code'] == 16]
 
 
