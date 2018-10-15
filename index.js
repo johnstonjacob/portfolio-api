@@ -40,7 +40,7 @@ app.get('/api/projects', async (_, res) => {
     const {data} = await axios(options);
     res.send(data.projects);
   } catch (error) {
-    res.status(500).end();
+    res.status(500).send("Internal Server Error. Please e-mail jacob@johnstonjacob.com if the problem persists.");
   }
 });
 
