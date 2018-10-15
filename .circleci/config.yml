@@ -28,6 +28,7 @@ jobs:
       - run:
          name: Deploy via script
          command: |
+            echo staging-${TAG}
             DOCKER_TAG=$(echo ${CIRCLE_SHA1} | cut -c1-8)
             python3 update_deploy.py staging-${TAG} ${SCRIPT_LOCATION} ${DOCKER_TAG}
   deploy:
