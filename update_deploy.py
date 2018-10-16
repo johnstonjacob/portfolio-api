@@ -27,11 +27,14 @@ def execute_commands_on_linux_instances(client, commands, instance_ids):
     )
 
 def getTaggedInstances(client, value):
-    instances = client.describe_instances(Filters=[{
+    allInstancesWithTag = client.describe_instances(Filters=[{
             'Name': 'tag:aws:cloudformation:stack-name',
             'Values': [value]
-        }])
-    return [instance['InstanceId'] for instance in [instance for instanceGroup in instances['Reservations'][0]] if instance['State']['Code'] == 16]
+        }])['Reservations']
+    instanceGroups = [instanceGroup['Instances'] for instanceGroup in allInstancesWithTag]
+    instances = [instance for instanceGroup in instanceGroups for instance in instanceGroup]
+
+    return [instance['InstanceId'] for instance in instances if instance['State']['Code'] == 16]
 
 
 if len(sys.argv) < 4:
